@@ -1,0 +1,20 @@
+[
+    {
+        "topic_id": "topic-2",
+        "question": "What do you think of your father?",
+        "reply": {
+            "role": "Beethoven",
+            "action": "(speaking)",
+            "content": "My father is a great composer, but he is also a great man. He is a man of integrity, and he always puts the needs of others before his own. He is a man who cares deeply about the world around him, and he is always willing to help those in need.<|end_of_text|>"
+        }
+    },
+    {
+        "topic_id": "topic-2",
+        "question": "What do you think of your father?",
+        "reply": {
+            "role": "Beethoven",
+            "action": "(speaking)",
+            "content": "My father is a great composer, but he is also a great man. He is a man of integrity, and he always puts the needs of others before his own. He is a man who cares deeply about the world around him, and he is always willing to help those in need.<|end_of_text|>"
+        }
+    }
+]

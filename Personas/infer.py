@@ -1,26 +1,41 @@
-from transformers import AutoModelForCausalLM, GenerationConfig, LlamaTokenizer, AutoTokenizer, AutoModel
+from transformers import AutoModelForCausalLM, GenerationConfig, AutoTokenizer, AutoModel
 from typing import Union, List
 import json
 import torch
 from tqdm import tqdm
-from moelora import PeftModel
+from services.Neeko.moelora import PeftModel
 import argparse
 import os
-import csv
+import re
 
-ROLE_PROFILE_MAPPING={
-        "Beethoven": "",
-        "Caesar": "",
-        "Cleopatra": "",
-        "Hermione": "",
-        "Martin": "",
-        "Newton": "",
-        "Socrates": "",
-        "Spartacus": "",
-        "Voldemort": "",
-    }
-for k in ROLE_PROFILE_MAPPING.keys():
-    ROLE_PROFILE_MAPPING[k] = torch.load(os.path.join("/path/to/your/role_embds", k + ".pth")).unsqueeze(0).cuda()
+
+def load_role_profiles(profile_dir="./data/profiles", embed_dir="./data/embed"):
+    role_profile_mapping = {}
+    role_profile_text = {}
+
+    for filename in os.listdir(profile_dir):
+        if filename.startswith("wiki_") and filename.endswith(".txt"):
+            character_name = filename[5:-4]  # remove 'wiki_' prefix and '.txt' suffix
+            profile_path = os.path.join(profile_dir, filename)
+            embed_path = os.path.join(embed_dir, character_name + ".pth")
+
+            if not os.path.exists(embed_path):
+                print(f"Warning: Missing embedding file for {character_name}")
+                continue
+
+            # Load embedding
+            embedding = torch.load(embed_path).unsqueeze(0).to("cpu")  # Or .cuda() if needed
+            role_profile_mapping[character_name] = embedding
+
+            # Load and parse text profile
+            with open(profile_path, 'r', encoding='utf-8') as fp:
+                text = fp.read().strip()
+            parts = text.split('\n\n')
+            assert parts[0].startswith('# '), f"Invalid profile format in {filename}"
+            profile_body = parts[1].strip()
+            role_profile_text[profile_body] = character_name
+
+    return role_profile_mapping, role_profile_text
 
 
 def read_profile(path):
@@ -33,38 +48,41 @@ def read_profile(path):
         agent_profile.append(p.strip())
     return agent_profile[0]
 
-ROLE_PROFILE_TEXT={}
-for k in ROLE_PROFILE_MAPPING.keys():
-    profile = read_profile(os.path.join("/path/to/your/seed_data/profiles", "wiki_" + k + ".txt"))
-    ROLE_PROFILE_TEXT[profile] = k
+
+###
+# ROLE_PROFILE_MAPPING, ROLE_PROFILE_TEXT = load_role_profiles()
+
 
 def mean_pooling(model_output, attention_mask):
-    token_embeddings = model_output[0] #First element of model_output contains all token embeddings
+    token_embeddings = model_output[0]  # First element of model_output contains all token embeddings
     input_mask_expanded = attention_mask.unsqueeze(-1).expand(token_embeddings.size()).float()
     return torch.sum(token_embeddings * input_mask_expanded, 1) / torch.clamp(input_mask_expanded.sum(1), min=1e-9)
+
 
 def get_s_bert():
     tokenizer = AutoTokenizer.from_pretrained('KBLab/sentence-bert-swedish-cased')
     model = AutoModel.from_pretrained('KBLab/sentence-bert-swedish-cased')
     return tokenizer, model
 
+
 def parse_arguments():
     parser = argparse.ArgumentParser(description="Infer")
 
     parser.add_argument(
-        "--infer_path", type=str, default="/home/tongxuluo/Neeko/seed_data/questions/generated_agent_interview_Beethoven.json", help="path of json."
+        "--infer_path", type=str, default="./data/seed_data/questions/generated_agent_interview_Beethoven.json",
+        help="path of json."
     )
     parser.add_argument(
-        "--save_path", type=str, default='/home/tongxuluo/Neeko/results/Neeko/Beethoven_single.json'
+        "--save_path", type=str, default='./data/seed_data/answers/Beethoven_single.json'
     )
     parser.add_argument(
-        "--LLM", type=str, default="/home/tongxuluo/models/Llama-2-7b-hf"
+        "--LLM", type=str, default="meta-llama/Llama-3.2-1B"
     )
     parser.add_argument(
         "--character", type=str, default="Beethoven"
     )
     parser.add_argument(
-        "--lora_path", type=str, default="/home/tongxuluo/Neeko/ckpt/neeko/wo_caesar/20240203140411"
+        "--lora_path", type=str, default="./data/train_output"
     )
     parser.add_argument(
         "--resume_id", type=int, default=0
@@ -82,7 +100,7 @@ def generate_prompt(character: str, inputs: List):
 
 The status of you is as follows:
 Location: Coffee Shop - Afternoon
-Status: {character} is casually chatting with a man from the 21st century. {character} fully trusts the man who engage in conversation and shares everything {character} knows without reservation.
+Status: {character} is casually chatting with a human. {character} fully trusts the human who engage in conversation and shares everything {character} knows without reservation.
 
 The interactions are as follows:
 
@@ -93,62 +111,133 @@ The interactions are as follows:
     prompted = prompt.format(character=character, history=history)
     return prompted
 
-def evaluate(
-            tokenizer,
-            model,
-            character,
-            inputs=None,
-            temperature=0.1,
-            top_p=0.7,
-            top_k=40,
-            num_beams=3,
-            max_new_tokens=512,
-            **kwargs,
-    ):
-        prompt = generate_prompt(character, inputs)
-        inputs = tokenizer(prompt, return_tensors="pt")
-        input_ids = inputs["input_ids"].cuda()
-        generation_config = GenerationConfig(
-            temperature=temperature,
-            top_p=top_p,
-            top_k=top_k,
-            num_beams=num_beams,
-            **kwargs,
-        )
-        with torch.no_grad():
-            generation_output = model.generate(
-                input_ids=input_ids,
-                generation_config=generation_config,
-                return_dict_in_generate=True,
-                output_scores=True,
-                max_new_tokens=max_new_tokens,
-            )
-        s = generation_output.sequences[0]
-        output = tokenizer.decode(s)
-        print(output)
-        return output.split(f"(speaking): ")[-1].strip().replace("</s>", "")
 
+def evaluate(
+        tokenizer,
+        model,
+        character,
+        inputs=None,
+        temperature=0.1,
+        top_p=0.7,
+        top_k=40,
+        num_beams=3,
+        max_new_tokens=512,
+        **kwargs,
+):
+    prompt = generate_prompt(character, inputs)
+    inputs = tokenizer(prompt, return_tensors="pt")
+    input_ids = inputs["input_ids"].to("cpu")  # .cuda()
+    generation_config = GenerationConfig(
+        temperature=temperature,
+        top_p=top_p,
+        top_k=top_k,
+        num_beams=num_beams,
+        **kwargs,
+    )
+    with torch.no_grad():
+        generation_output = model.generate(
+            input_ids=input_ids,
+            generation_config=generation_config,
+            return_dict_in_generate=True,
+            output_scores=True,
+            max_new_tokens=max_new_tokens,
+        )
+    s = generation_output.sequences[0]
+    output = tokenizer.decode(s)
+    print(output)
+    return output.split(f"(speaking): ")[-1].strip().replace("</s>", "")
+
+
+def load_model(lora_path="./data/train_output", llm="meta-llama/Llama-3.2-1B"):
+    """
+    Loads tokenizer and PEFT model with LoRA weights.
+    Returns:
+        tokenizer: HuggingFace tokenizer
+        model: HuggingFace model with LoRA adapters
+    """
+    # Load tokenizer
+    tokenizer = AutoTokenizer.from_pretrained(llm, trust_remote_code=True)
+
+    # Load base model
+    model = AutoModelForCausalLM.from_pretrained(
+        llm,
+        device_map={"": "cpu"},  # change to "auto" for GPU support
+        torch_dtype=torch.float32,  # change to float16 if using CUDA
+        trust_remote_code=True,
+    )
+
+    # Load LoRA weights
+    model = PeftModel.from_pretrained(
+        model,
+        lora_path,
+        device_map={"": "cpu"},  # change to "auto" for GPU support
+        torch_dtype=torch.float32,
+    )
+
+    return tokenizer, model
+
+def ask_character(model, tokenizer, character: str, profile_dir, embed_dir, question: str, temperature: float) -> str:
+    """
+    Ask a single question to the specified character and return only the character's reply.
+
+    Args:
+        model: The language model
+        tokenizer: Tokenizer for the model
+        character: Name of the character to impersonate
+        question: User's question
+
+    Returns:
+        Character's response as a string (cleaned, one-turn only)
+    """
+    # Load role profile and assign character embedding if needed
+    ROLE_PROFILE_MAPPING, _ = load_role_profiles(profile_dir, embed_dir)
+    if hasattr(model, "global_role_embd"):
+        if character not in ROLE_PROFILE_MAPPING:
+            raise ValueError(f"No role profile found for character: {character}")
+        model.global_role_embd.clear()
+        model.global_role_embd.append(ROLE_PROFILE_MAPPING[character])
+
+    # Build minimal input for one-turn interaction
+    inputs = [{
+        "role": "Man",
+        "action": "(speaking)",
+        "content": question
+    }]
+
+    # Get full model output
+    full_output = evaluate(tokenizer=tokenizer, model=model,
+                           character=character, inputs=inputs,
+                           temperature=temperature)
+
+    # Extract only the first reply by the character
+    match = re.search(rf"{character} \(speaking\):\s*(.*)", full_output)
+    if match:
+        reply = match.group(1).strip()
+
+        # Cut off any trailing repeated content or accidental loops
+        reply = reply.split("</s>")[0].strip()
+
+        # Optionally clean up redundant lines (model loops)
+        lines = reply.splitlines()
+        seen = set()
+        clean_lines = []
+        for line in lines:
+            if line not in seen:
+                clean_lines.append(line)
+                seen.add(line)
+        return " ".join(clean_lines)
+
+    # If pattern isn't matched, return the whole thing as fallback
+    return full_output.replace("<|end_of_text|>", "").strip()
 
 def main(args):
     os.makedirs(os.path.dirname(args.save_path), exist_ok=True)
-    tokenizer = LlamaTokenizer.from_pretrained(args.LLM, trust_remote_code=True)
-    model = AutoModelForCausalLM.from_pretrained(
-            args.LLM,
-            # load_in_8bit=True,
-            torch_dtype=torch.float16,
-            device_map="auto",
-            trust_remote_code=True,
-        ) # fix zwq
-    model = PeftModel.from_pretrained(
-            model,
-            args.lora_path,
-            torch_dtype=torch.float16,
-            device_map="auto"
-        )
+    tokenizer, model = load_model()
+    ROLE_PROFILE_MAPPING, ROLE_PROFILE_TEXT = load_role_profiles()
     if hasattr(model, "global_role_embd"):
         s_tokenizer, s_bert = get_s_bert()
         scores = []
-        for k,v in ROLE_PROFILE_TEXT.items():
+        for k, v in ROLE_PROFILE_TEXT.items():
             sentences = [f'I want you to act like {args.character}', k]
             encoded_input = s_tokenizer(sentences, padding=True, truncation=True, return_tensors='pt')
 
@@ -167,7 +256,7 @@ def main(args):
         max_score = max(scores)
         index = scores.index(max_score)
         embd_key = list(ROLE_PROFILE_MAPPING.keys())[index]
-            
+
         model.global_role_embd.append(ROLE_PROFILE_MAPPING[embd_key])
 
     with open(args.infer_path, 'r') as file:
@@ -208,7 +297,7 @@ def main(args):
                 "topic_id": one["topic_id"],
                 "question": one["question"],
             }
-            inputs=[{
+            inputs = [{
                 "role": "Man",
                 "action": "(speaking)",
                 "content": one["question"]
@@ -229,6 +318,11 @@ def main(args):
                 file.seek(0)
                 json.dump(file_data, file, indent=4)
 
+
 if __name__ == "__main__":
     args = parse_arguments()
-    main(args=args)
+    tokenizer, model = load_model()
+    char = input("What character?: ")
+    question = input("What is your question?: ")
+    print(ask_character(model, tokenizer, char, question))
+    # main(args=args)

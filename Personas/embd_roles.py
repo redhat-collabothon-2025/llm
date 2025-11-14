@@ -5,7 +5,7 @@ from transformers import (
     AutoModel
 )
 
-ROLE_PROFILE_MAPPING={
+ROLE_PROFILE_MAPPING = {
     "Beethoven": "",
     "Caesar": "",
     "Cleopatra": "",
@@ -17,6 +17,7 @@ ROLE_PROFILE_MAPPING={
     "Voldemort": "",
 }
 
+
 def read_profile(path):
     with open(path, 'r', encoding='utf-8') as fp:
         text = fp.read().strip()
@@ -27,12 +28,12 @@ def read_profile(path):
         agent_profile.append(p.strip())
     return agent_profile[0]
 
+
 def main(
-    encoder_path: str = '/path/to/your/deberta-v3-large',
-    seed_data_path: str = '/path/to/your/seed_data',
-    save_path: str = '/path/to/save/your/role_embds'
-    ):
-    
+        encoder_path: str = '/path/to/your/deberta-v3-large',
+        seed_data_path: str = '/path/to/your/seed_data',
+        save_path: str = '/path/to/save/your/role_embds'
+):
     if not os.path.exists(save_path):
         os.makedirs(save_path)
 
@@ -42,11 +43,27 @@ def main(
     tokenizer = AutoTokenizer.from_pretrained(encoder_path)
     encoder = AutoModel.from_pretrained(encoder_path)
 
-    for k,v in ROLE_PROFILE_MAPPING.items():
+    for k, v in ROLE_PROFILE_MAPPING.items():
         input = tokenizer.encode(v, return_tensors="pt")
         out = encoder(input)
         cls_token = out.last_hidden_state[:, 0, :].reshape(-1)
         torch.save(cls_token, os.path.join(save_path, k + ".pth"))
+
+
+def embed_character(character_name: str, encoder_path: str = '/path/to/your/deberta-v3-large',
+                    seed_data_path: str = '/path/to/your/seed_data',
+                    save_path: str = '/path/to/save/your/role_embds'):
+    if not os.path.exists(save_path):
+        os.makedirs(save_path)
+    NEW_CHARACTER_MAPPING = read_profile(os.path.join(seed_data_path, "profiles/wiki_" + character_name + ".txt"))
+
+    tokenizer = AutoTokenizer.from_pretrained(encoder_path)
+    encoder = AutoModel.from_pretrained(encoder_path)
+
+    input = tokenizer.encode(NEW_CHARACTER_MAPPING, return_tensors="pt")
+    out = encoder(input)
+    cls_token = out.last_hidden_state[:, 0, :].reshape(-1)
+    torch.save(cls_token, os.path.join(save_path, character_name + ".pth"))
 
 
 if __name__ == "__main__":
