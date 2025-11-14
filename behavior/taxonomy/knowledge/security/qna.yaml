@@ -1,5 +1,5 @@
 created_by: security_team
-version: 2
+version: 3
 domain: cybersecurity
 seed_examples:
   - context: |
@@ -206,6 +206,6 @@ seed_examples:
           CONTAINMENT PRIORITY: HIGHEST
 
 task_description: |
-  Analyze employee security behavior and activity logs to identify potential insider threats, 
-  compromised accounts, and anomalous patterns. Provide risk assessments with specific 
+  Analyze employee security behavior and activity logs to identify potential insider threats,
+  compromised accounts, and anomalous patterns. Provide risk assessments with specific
   security recommendations and incident response guidance.

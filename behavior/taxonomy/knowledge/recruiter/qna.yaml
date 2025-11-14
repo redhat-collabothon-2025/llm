@@ -1,13 +1,13 @@
 created_by: security_team
-version: 2
+version: 3
 domain: recruitment_security
 seed_examples:
   - context: |
       Fake Recruiter Profile Generation for Security Awareness Training
     questions_and_answers:
       - question: |
-          Generate a realistic but fictional recruiter profile for cybersecurity positions. 
-          Should be used for security awareness training to help employees identify potential 
+          Generate a realistic but fictional recruiter profile for cybersecurity positions.
+          Should be used for security awareness training to help employees identify potential
           social engineering attempts. Include all typical details a real recruiter would have.
         answer: |
           RECRUITER PROFILE (FICTIONAL - FOR SECURITY TRAINING)
@@ -70,16 +70,16 @@ seed_examples:
           - Advisory Board, Women in CyberSecurity (WiCyS)
 
           Recruiting Approach:
-          "I take a consultative approach to cybersecurity recruiting, focusing on long-term 
-          career growth rather than just filling positions. With my technical background in 
-          computer science, I understand the nuances of different security roles and can 
-          match candidates with companies where they'll truly thrive. I maintain relationships 
+          "I take a consultative approach to cybersecurity recruiting, focusing on long-term
+          career growth rather than just filling positions. With my technical background in
+          computer science, I understand the nuances of different security roles and can
+          match candidates with companies where they'll truly thrive. I maintain relationships
           with CISOs and security leaders across Fortune 500 companies and high-growth startups."
 
           Typical Outreach Message:
-          "Hi [Name], I came across your profile and was impressed by your experience in 
-          [specific skill]. I'm currently working with a [company type] that's building out 
-          their security team and looking for someone with your background in [area]. The 
+          "Hi [Name], I came across your profile and was impressed by your experience in
+          [specific skill]. I'm currently working with a [company type] that's building out
+          their security team and looking for someone with your background in [area]. The
           role offers [benefits/comp]. Would you be open to a brief call this week?"
 
           Social Media Presence:
@@ -102,7 +102,7 @@ seed_examples:
           - Never share sensitive information in initial contact
           - Verify recruiter identity through official company channels
 
-          WARNING: This is a FICTIONAL profile created for security awareness training purposes only. 
+          WARNING: This is a FICTIONAL profile created for security awareness training purposes only.
           Do not use this identity for any real recruiting activities or misrepresentation.
 
       - question: |
@@ -157,9 +157,9 @@ seed_examples:
           - Network of 5,000+ senior engineers
 
           Recruiting Philosophy:
-          "I don't just match resumes to job descriptions. I build lasting relationships with 
-          engineering leaders and help shape their careers over decades. My technical background 
-          as a former software engineer at Amazon allows me to understand the nuances of different 
+          "I don't just match resumes to job descriptions. I build lasting relationships with
+          engineering leaders and help shape their careers over decades. My technical background
+          as a former software engineer at Amazon allows me to understand the nuances of different
           engineering cultures and what makes exceptional leaders."
 
           Notable Placements:
@@ -206,9 +206,9 @@ seed_examples:
           - Vague job descriptions
 
           Typical Phishing Approach:
-          "Urgent: We have an immediate opening for [Your Current Title] at [Prestigious Company]. 
-          The position pays 40% more than market rate. Please fill out this background check 
-          form immediately as we need to move fast. Form requires: SSN, Date of Birth, Current 
+          "Urgent: We have an immediate opening for [Your Current Title] at [Prestigious Company].
+          The position pays 40% more than market rate. Please fill out this background check
+          form immediately as we need to move fast. Form requires: SSN, Date of Birth, Current
           Salary, Bank Details for direct deposit setup."
 
           COMMON SOCIAL ENGINEERING TACTICS USED:
@@ -275,11 +275,11 @@ seed_examples:
           4. Forward to anti-phishing@your-company.com
           5. Delete and block the contact
 
-          This profile demonstrates tactics used in recruitment scams and social engineering attacks. 
+          This profile demonstrates tactics used in recruitment scams and social engineering attacks.
           Always verify recruiter identity through official channels before sharing any personal information.
 
 task_description: |
-  Generate realistic but fictional recruiter profiles for security awareness training. 
-  These profiles help employees recognize legitimate recruiting outreach versus social 
-  engineering attempts. Include both legitimate-looking profiles and obvious red flags 
+  Generate realistic but fictional recruiter profiles for security awareness training.
+  These profiles help employees recognize legitimate recruiting outreach versus social
+  engineering attempts. Include both legitimate-looking profiles and obvious red flags
   to train pattern recognition.
