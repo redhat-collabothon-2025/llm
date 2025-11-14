@@ -1,0 +1,26 @@
+apiVersion: serving.kserve.io/v1beta1
+kind: InferenceService
+metadata:
+  name: granite-security-analyzer
+  namespace: white-hat
+  annotations:
+    serving.kserve.io/deploymentMode: ModelMesh
+    opendatahub.io/template-name: vllm-granite-runtime
+    opendatahub.io/template-display-name: "Employee Security Analyzer"
+spec:
+  predictor:
+    model:
+      modelFormat:
+        name: pytorch
+      runtime: vllm-granite-runtime
+      storage:
+        key: aws-connection-granite-model
+        path: granite-security-finetuned/
+      resources:
+        requests:
+          cpu: "4"
+          memory: 16Gi
+        limits:
+          cpu: "8"
+          memory: 32Gi
+          nvidia.com/gpu: "1"
