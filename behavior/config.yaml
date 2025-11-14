@@ -1,0 +1,25 @@
+chat:
+  context: default
+  logs_dir: data/chatlogs
+  model: ibm-granite/granite-3b-code-instruct
+
+generate:
+  model: ibm-granite/granite-3b-code-instruct
+  num_cpus: 10
+  num_instructions: 100
+  output_dir: datasets/generated
+  taxonomy_base: upstream/main
+  taxonomy_path: taxonomy
+
+serve:
+  model_path: models/granite-multitask-finetuned
+
+train:
+  device: cuda
+  model_path: ibm-granite/granite-3b-code-instruct
+  data_output_dir: datasets/generated
+  ckpt_output_dir: models/granite-multitask-finetuned
+  num_epochs: 3
+  effective_batch_size: 32
+  learning_rate: 2e-4
+  warmup_steps: 100
