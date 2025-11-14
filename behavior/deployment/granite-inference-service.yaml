@@ -1,0 +1,31 @@
+apiVersion: serving.kserve.io/v1beta1
+kind: InferenceService
+metadata:
+  name: granite-multitask-api
+  namespace: white-hat
+  labels:
+    app: granite-multitask
+  annotations:
+    serving.kserve.io/deploymentMode: ModelMesh
+    opendatahub.io/template-display-name: "Granite Multi-task API"
+spec:
+  predictor:
+    model:
+      modelFormat:
+        name: pytorch
+        version: "2"
+
+      runtime: vllm-granite-runtime
+
+      storage:
+        key: aws-connection-my-storage
+        path: granite-multitask-finetuned/
+
+      resources:
+        requests:
+          cpu: "4"
+          memory: 16Gi
+        limits:
+          cpu: "8"
+          memory: 32Gi
+          nvidia.com/gpu: "1"

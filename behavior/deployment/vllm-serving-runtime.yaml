@@ -1,0 +1,56 @@
+apiVersion: serving.kserve.io/v1alpha1
+kind: ServingRuntime
+metadata:
+  name: vllm-granite-runtime
+  namespace: white-hat
+  annotations:
+    opendatahub.io/recommended-accelerators: '["nvidia.com/gpu"]'
+    openshift.io/display-name: "vLLM Runtime for Granite"
+spec:
+  supportedModelFormats:
+    - name: pytorch
+      version: "2"
+      autoSelect: true
+
+  multiModel: false
+
+  containers:
+    - name: kserve-container
+      image: quay.io/opendatahub/vllm:stable
+
+      command:
+        - python
+        - -m
+        - vllm.entrypoints.openai.api_server
+
+      args:
+        - --model
+        - /mnt/models
+        - --port
+        - "8080"
+        - --max-model-len
+        - "4096"
+        - --gpu-memory-utilization
+        - "0.85"
+        - --dtype
+        - "float16"
+        - --served-model-name
+        - granite-multitask
+
+      env:
+        - name: HF_HOME
+          value: /tmp/hf_home
+
+      ports:
+        - containerPort: 8080
+          protocol: TCP
+          name: http
+
+      resources:
+        requests:
+          cpu: "4"
+          memory: 16Gi
+        limits:
+          cpu: "8"
+          memory: 32Gi
+          nvidia.com/gpu: "1"
