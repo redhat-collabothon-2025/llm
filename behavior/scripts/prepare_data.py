@@ -159,4 +159,4 @@ def prepare_training_data(input_json_path, output_dir='behavior/data'):
     return train_df, val_df, test_df
 
 if __name__ == "__main__":
-    prepare_training_data('behavior/datasets/fake_bank_logs.json', 'behavior/data')
+    prepare_training_data('../datasets/fake_bank_logs.json', '../data')
