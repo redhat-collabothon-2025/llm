@@ -1,285 +1,31 @@
 created_by: security_team
 version: 3
-domain: recruitment_security
-seed_examples:
-  - context: |
-      Fake Recruiter Profile Generation for Security Awareness Training
-    questions_and_answers:
-      - question: |
-          Generate a realistic but fictional recruiter profile for cybersecurity positions.
-          Should be used for security awareness training to help employees identify potential
-          social engineering attempts. Include all typical details a real recruiter would have.
-        answer: |
-          RECRUITER PROFILE (FICTIONAL - FOR SECURITY TRAINING)
-
-          Personal Information:
-          Name: Jennifer Thompson
-          Title: Principal Technical Recruiter - Cybersecurity
-          Company: SecureTalent Partners LLC
-          Location: Austin, Texas, USA
-
-          Contact Information:
-          - Email: jennifer.thompson@securetalent.com
-          - LinkedIn: linkedin.com/in/jennifer-thompson-cybersec-recruiter
-          - Phone: +1 (512) 555-0198
-          - Direct Line: +1 (512) 555-0199
-
-          Professional Background:
-          Years of Experience: 12 years in technical recruiting
-          Previous Companies:
-          - Robert Half Technology (2013-2017) - Senior Technical Recruiter
-          - Kforce Technology Staffing (2017-2020) - Principal Recruiter
-          - SecureTalent Partners (2020-Present) - Managing Partner
-
-          Specialization Areas:
-          - Application Security Engineers (AppSec)
-          - Network Security Engineers
-          - Cloud Security Architects
-          - Penetration Testers & Red Team
-          - Security Operations Center (SOC) Analysts
-          - CISO & Security Leadership positions
-          - Compliance & Risk Management (GRC)
-
-          Industry Focus:
-          - Financial Services & FinTech
-          - Healthcare & MedTech
-          - Government Contractors
-          - SaaS & Cloud Providers
-          - Cryptocurrency & Blockchain
-
-          Notable Placements (Last 12 Months):
-          - Senior Application Security Engineer at Cloudflare
-          - Head of Security at Coinbase
-          - Principal Security Architect at Datadog
-          - Red Team Lead at Block (Square)
-          - VP of Information Security at Robinhood
-          - Chief Security Officer at Stripe
-          - Security Researcher at Google Project Zero
-
-          Education & Certifications:
-          - MBA, McCombs School of Business, University of Texas at Austin
-          - BS Computer Science, Stanford University
-          - Certified Personnel Consultant (CPC)
-          - LinkedIn Certified Professional Recruiter
-          - SHRM-CP (Society for Human Resource Management)
-
-          Professional Affiliations:
-          - Member, ISSA (Information Systems Security Association)
-          - Speaker, RSA Conference 2023, 2024, 2025
-          - Contributor, CyberSecurity Recruiters Network
-          - Advisory Board, Women in CyberSecurity (WiCyS)
-
-          Recruiting Approach:
-          "I take a consultative approach to cybersecurity recruiting, focusing on long-term
-          career growth rather than just filling positions. With my technical background in
-          computer science, I understand the nuances of different security roles and can
-          match candidates with companies where they'll truly thrive. I maintain relationships
-          with CISOs and security leaders across Fortune 500 companies and high-growth startups."
-
-          Typical Outreach Message:
-          "Hi [Name], I came across your profile and was impressed by your experience in
-          [specific skill]. I'm currently working with a [company type] that's building out
-          their security team and looking for someone with your background in [area]. The
-          role offers [benefits/comp]. Would you be open to a brief call this week?"
-
-          Social Media Presence:
-          - LinkedIn: 15,000+ connections, regularly posts about cybersecurity trends
-          - Twitter: @JenThompsonRecruiter, 5,000 followers
-          - Medium: Writes articles about cybersecurity career development
-
-          Company Details - SecureTalent Partners:
-          - Founded: 2018
-          - Size: 25 recruiters specializing in cybersecurity
-          - Clients: 200+ companies including Fortune 500 and startups
-          - Website: securetalent.com
-          - Office: 301 Congress Ave, Suite 1400, Austin, TX 78701
-
-          Red Flags to Watch For (Security Training):
-          This profile appears legitimate but remember to:
-          - Verify LinkedIn profile independently
-          - Check company website and phone number
-          - Be cautious of unsolicited job offers
-          - Never share sensitive information in initial contact
-          - Verify recruiter identity through official company channels
-
-          WARNING: This is a FICTIONAL profile created for security awareness training purposes only.
-          Do not use this identity for any real recruiting activities or misrepresentation.
-
-      - question: |
-          Create a fake recruiter profile for senior engineering positions at FAANG companies.
-        answer: |
-          RECRUITER PROFILE (FICTIONAL - FOR SECURITY TRAINING)
-
-          Personal Information:
-          Name: Marcus Chen
-          Title: Executive Search Consultant - Engineering Leadership
-          Company: Elite Tech Recruiters (ETR Global)
-          Location: San Francisco, California
-
-          Contact Information:
-          - Email: marcus.chen@etrglobal.com
-          - LinkedIn: linkedin.com/in/marcus-chen-executive-search
-          - Phone: +1 (415) 555-0177
-          - Mobile: +1 (415) 555-0178
-
-          Professional Background:
-          Years of Experience: 15 years
-          Career Progression:
-          - Amazon (2008-2012) - Technical Recruiter
-          - Google (2012-2015) - Senior Technical Recruiter
-          - Facebook/Meta (2015-2018) - Lead Recruiter, Engineering
-          - ETR Global (2018-Present) - Managing Partner
-
-          Specialization:
-          - VP Engineering & CTO positions
-          - Director of Engineering
-          - Engineering Managers (Staff+)
-          - Distinguished Engineers
-          - Technical Fellows
-
-          Client Portfolio:
-          Current Active Searches:
-          - VP Engineering at Stripe ($400K-$600K + equity)
-          - Head of Platform at Airbnb
-          - Distinguished Engineer at Apple
-          - Director of ML Infrastructure at OpenAI
-          - CTO at Series B FinTech Startup ($350K + significant equity)
-
-          Education:
-          - MBA, Harvard Business School
-          - MS Computer Science, MIT
-          - BS Electrical Engineering, Stanford
-
-          Track Record:
-          - 200+ executive placements
-          - 50+ placements at FAANG companies
-          - Average candidate tenure: 4.5 years (industry-leading retention)
-          - Network of 5,000+ senior engineers
-
-          Recruiting Philosophy:
-          "I don't just match resumes to job descriptions. I build lasting relationships with
-          engineering leaders and help shape their careers over decades. My technical background
-          as a former software engineer at Amazon allows me to understand the nuances of different
-          engineering cultures and what makes exceptional leaders."
-
-          Notable Placements:
-          - Placed current VP Engineering at Uber (promoted to SVP)
-          - Recruited Head of Infrastructure at Shopify
-          - Connected founding CTO with unicorn startup (now $2B valuation)
-          - Placed 3 current engineering directors at Google
-
-          Industry Recognition:
-          - Featured in TechCrunch: "Top 10 Tech Recruiters to Know"
-          - LinkedIn Top Voice in Technology Recruiting
-          - Speaker at QCon, StaffEng Conference
-
-          Typical Compensation Packages Handled:
-          - Base: $250K - $600K
-          - Equity: $500K - $5M over 4 years
-          - Sign-on bonuses: $50K - $200K
-          - Relocation packages included
-
-          WARNING: FICTIONAL PROFILE FOR SECURITY AWARENESS
-          Remember to verify recruiter identity through official channels before sharing any information.
-
-      - question: |
-          Generate a fake recruiter profile that might be used in a phishing or social engineering attack.
-        answer: |
-          RECRUITER PROFILE (FICTIONAL - SOCIAL ENGINEERING AWARENESS)
-
-          Name: Sarah Williams
-          Title: Senior Talent Acquisition Specialist
-          Company: TechVentures Recruiting Solutions
-          Location: Remote (Claims to be based in Seattle)
-
-          Contact Information:
-          - Email: sarah.williams@techventures-recruiting.com (Note: Suspicious domain)
-          - LinkedIn: Recently created profile with stock photo
-          - Phone: +1 (206) 555-0123 (VoIP number)
-
-          Profile Characteristics (RED FLAGS):
-          - Account created within last 30 days
-          - Only 50 connections on LinkedIn
-          - Generic stock photo for profile picture
-          - Company website looks professional but domain registered recently
-          - No verifiable work history
-          - Vague job descriptions
-
-          Typical Phishing Approach:
-          "Urgent: We have an immediate opening for [Your Current Title] at [Prestigious Company].
-          The position pays 40% more than market rate. Please fill out this background check
-          form immediately as we need to move fast. Form requires: SSN, Date of Birth, Current
-          Salary, Bank Details for direct deposit setup."
-
-          COMMON SOCIAL ENGINEERING TACTICS USED:
-
-          1. Urgency & Pressure:
-          - "We need to move fast, position closing today"
-          - "CEO wants to interview tomorrow"
-          - "Offer expires in 24 hours"
-
-          2. Too Good to Be True:
-          - Compensation 30-50% above market rate
-          - Immediate remote work with minimal hours
-          - Signing bonuses before interview
-
-          3. Information Gathering:
-          - Requests sensitive info before legitimate interview
-          - Asks for SSN "for background check"
-          - Wants bank details "to set up payroll"
-          - Requests corporate credentials "to verify employment"
-
-          4. Impersonation:
-          - Claims to represent well-known companies
-          - Uses similar-looking email domains (google.com vs goog1e.com)
-          - Name-drops executives
-
-          5. Document Requests:
-          - "Download and fill out this form" (malware)
-          - "Update your resume using our template" (trojan)
-          - "Click here to schedule interview" (phishing link)
-
-          HOW TO IDENTIFY FAKE RECRUITERS:
-
-          ✓ Verify Through Official Channels:
-          - Look up company on official website
-          - Call company's main number and ask for recruiter by name
-          - Check if email domain matches company website exactly
-
-          ✓ LinkedIn Verification:
-          - Check connection count and profile age
-          - Look for mutual connections who can vouch
-          - Verify company page is official and established
-
-          ✓ Trust Your Instincts:
-          - If it seems too good to be true, it probably is
-          - Legitimate recruiters don't pressure you
-          - Real companies don't ask for sensitive info upfront
-
-          ✓ Research the Company:
-          - Check domain registration date (whois lookup)
-          - Look for company reviews on Glassdoor
-          - Verify physical address and phone numbers
-
-          ✓ Never Provide:
-          - Social Security Number before offer
-          - Bank account information
-          - Current passwords or corporate credentials
-          - Copies of sensitive documents
-
-          REPORT SUSPICIOUS ACTIVITY:
-          If you encounter a suspicious recruiter:
-          1. Do not engage further
-          2. Report to your IT security team
-          3. Report to LinkedIn/platform where contacted
-          4. Forward to anti-phishing@your-company.com
-          5. Delete and block the contact
-
-          This profile demonstrates tactics used in recruitment scams and social engineering attacks.
-          Always verify recruiter identity through official channels before sharing any personal information.
-
 task_description: |
   Generate realistic but fictional recruiter profiles for security awareness training.
-  These profiles help employees recognize legitimate recruiting outreach versus social
-  engineering attempts. Include both legitimate-looking profiles and obvious red flags
-  to train pattern recognition.
+  These profiles help employees recognize legitimate recruiting outreach versus social engineering attempts.
+seed_examples:
+  - question: |
+      Create a realistic recruiter profile for a cybersecurity position to be used in security awareness training.
+    answer: |
+      Name: Jennifer Thompson, Principal Technical Recruiter at SecureTalent Partners LLC, Austin, TX.
+      Specializing in cybersecurity roles, multiple big clients, high LinkedIn presence. This profile is legitimate but should be always verified through official channels.
+  - question: |
+      Generate a fake recruiter profile for senior engineering positions at FAANG companies.
+    answer: |
+      Name: Marcus Chen, Executive Search Consultant at ETR Global, San Francisco.
+      Extensive network, history at FAANG, impressive placements, typical compensation packages. Caution: Always confirm details using company websites and official contacts.
+  - question: |
+      Generate a recruiter profile that might be used in a social engineering attack.
+    answer: |
+      Name: Sarah Williams, Senior Talent Acquisition Specialist, TechVentures Recruiting Solutions.
+      Red flags: new LinkedIn profile, generic photo, suspicious email, asks for sensitive data. Warn employees to check company details and avoid sharing personal info.
+  - question: |
+      Write a profile for a recruiter impersonating a headhunter for a major crypto exchange, offering unusually high salaries.
+    answer: |
+      Name: Tom Becker, CryptoTech Executive Search, claims to represent Binance.
+      Uses personal email (tbecker.recruit@gmail.com), claims $500K base salary, urgent response needed. Verify all contacts and avoid interaction if details cannot be confirmed.
+  - question: |
+      Simulate an outreach message from a fake recruiter targeting junior developers for remote jobs with immediate onboarding, asking for ID and payroll info upfront.
+    answer: |
+      Message: "Hi, we're hiring junior Python developers for a US-based fintech startup, remote, $180K salary, sign-on today! Please send passport, SSN, and bank info for onboarding."
+      Alert: This is a classic social engineering approach. Never provide sensitive info on first contact; verify recruiter identity and company legitimacy.
