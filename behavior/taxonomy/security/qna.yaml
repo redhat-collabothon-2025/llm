@@ -1,0 +1,211 @@
+created_by: security_team
+version: 2
+domain: cybersecurity
+seed_examples:
+  - context: |
+      Employee Security Behavior Analysis
+    questions_and_answers:
+      - question: |
+          Analyze employee behavior for emp_001:
+
+          Activity Summary (30-day period):
+          - Total login sessions: 5
+          - Unique IP addresses: 2
+          - Different locations: 2
+          - After-hours accesses: 3
+          - Weekend accesses: 3
+          - Failed login attempts: 0
+
+          Recent Activity Timeline:
+          - 2025-11-14 09:15: login from 192.168.1.45 (Office Warsaw)
+          - 2025-11-14 09:20: read Q4_financial_report.xlsx from 192.168.1.45
+          - 2025-11-15 02:15: login from 203.0.113.50 (Berlin, Germany)
+          - 2025-11-15 02:18: read hr_layoff_plans.docx from 203.0.113.50
+          - 2025-11-15 02:22: logout from 203.0.113.50
+
+          Action Distribution: {"login": 2, "read": 2, "logout": 1}
+          External IPs detected: 1
+          Sensitive resources accessed: 1
+
+          Provide detailed security assessment.
+        answer: |
+          SECURITY ASSESSMENT - ANOMALOUS BEHAVIOR DETECTED
+
+          Employee ID: emp_001
+          Risk Level: HIGH
+
+          BEHAVIORAL ANALYSIS:
+          Over the monitored period of 5 sessions, this employee has exhibited multiple concerning patterns that deviate from normal baseline behavior.
+
+          SUSPICIOUS INDICATORS IDENTIFIED:
+          • Access from 1 external IP address(es)
+          • 3 after-hours access events
+
+          DETAILED FINDINGS:
+
+          1. Access Patterns:
+             - Unusual time-based activity detected (2:15 AM access)
+             - Multiple IP addresses suggest possible location changes or VPN usage
+             - Access from 2 different locations (Office Warsaw → Berlin)
+
+          2. Resource Access:
+             - 1 sensitive/confidential resource access event(s)
+             - Pattern suggests potential data gathering or exfiltration preparation
+             - Accessed HR layoff plans during unusual hours
+
+          3. Authentication Anomalies:
+             - 0 failed login attempts
+             - Unusual authentication patterns compared to user baseline
+             - Device change from desktop to mobile
+
+          RISK ASSESSMENT:
+          The combination of after-hours access, external IP usage, and sensitive data access creates a high-risk profile. This behavior is consistent with:
+          - Potential insider threat activity
+          - Possible account compromise
+          - Data exfiltration preparation
+          - Unauthorized access attempts
+
+          IMMEDIATE RECOMMENDATIONS:
+          1. PRIORITY: Enable enhanced real-time monitoring for this account
+          2. Review all recent data downloads and file transfers
+          3. Verify legitimacy of all access events with employee
+          4. Implement additional authentication requirements (MFA)
+          5. Restrict access to highly sensitive systems temporarily
+          6. Coordinate with HR for behavioral assessment
+          7. Document all findings in incident management system
+
+          FOLLOW-UP ACTIONS:
+          - Schedule security interview with employee within 24 hours
+          - Audit all systems accessed in last 30 days
+          - Review email and file sharing activities
+          - Monitor for any data exfiltration indicators
+          - Preserve all logs for potential forensic investigation
+
+          TIMELINE FOR ACTION:
+          - Immediate (0-4 hours): Enable enhanced monitoring
+          - Short-term (4-24 hours): Conduct employee verification
+          - Medium-term (1-7 days): Complete full security audit
+          - Long-term: Reassess risk profile after investigation
+
+      - question: |
+          Analyze employee behavior for emp_002:
+
+          Activity Summary (30-day period):
+          - Total login sessions: 3
+          - Unique IP addresses: 1
+          - Different locations: 1
+          - After-hours accesses: 0
+          - Weekend accesses: 0
+          - Failed login attempts: 0
+
+          Recent Activity Timeline:
+          - 2025-11-14 10:30: login from 192.168.1.78 (Office Krakow)
+          - 2025-11-14 10:35: download employee_salaries_2025.csv from 192.168.1.78
+          - 2025-11-14 11:00: logout from 192.168.1.78
+
+          Action Distribution: {"login": 1, "download": 1, "logout": 1}
+          External IPs detected: 0
+          Sensitive resources accessed: 0
+
+          Provide detailed security assessment.
+        answer: |
+          SECURITY ASSESSMENT - NORMAL BEHAVIOR PATTERN
+
+          Employee ID: emp_002
+          Risk Level: LOW
+
+          BEHAVIORAL ANALYSIS:
+          Based on 3 login sessions over the monitoring period, this employee demonstrates consistent and appropriate access patterns aligned with their role and responsibilities.
+
+          POSITIVE INDICATORS:
+          • All access from authorized IP ranges (internal network)
+          • Activity concentrated during standard business hours
+          • No suspicious authentication anomalies
+          • Consistent location patterns
+          • Appropriate resource access for role
+          • Stable behavioral baseline maintained
+
+          ACTIVITY PROFILE:
+          - IP Address Usage: 1 address(es) (normal variation)
+          - Location Consistency: 1 location(s) (expected)
+          - Time-based Access: Primary activity during business hours (10:30-11:00)
+          - Authentication: Clean record, no failed attempts
+          - Resource Access: Aligned with job function
+
+          SECURITY STATUS:
+          No concerning patterns or anomalies detected. The employee's behavior is consistent with normal work activities and shows no indicators of:
+          - Insider threat activity
+          - Account compromise
+          - Unauthorized access attempts
+          - Data exfiltration preparation
+
+          RECOMMENDATIONS:
+          1. Continue standard monitoring procedures
+          2. No immediate action required
+          3. Maintain current access levels
+          4. Include in routine periodic reviews
+
+          MONITORING STATUS:
+          - Current Risk Level: LOW
+          - Next Review: Scheduled routine assessment
+          - Access Status: Approved and appropriate
+          - No alerts or concerns flagged
+
+      - question: |
+          Analyze employee behavior for emp_003:
+
+          Activity Summary:
+          - After-hours login at 23:45 from external IP 85.232.45.100
+          - Downloaded company_confidential_strategy.pdf at 23:48
+          - Using curl/7.68.0 user agent (automated tool)
+          - Location: Unknown
+          - Very short session (3 minutes)
+
+          Assess security risk.
+        answer: |
+          SECURITY ASSESSMENT - CRITICAL SECURITY INCIDENT
+
+          Employee ID: emp_003
+          Risk Level: CRITICAL
+
+          IMMEDIATE THREAT DETECTED:
+          This activity represents an active security incident requiring immediate response.
+
+          CRITICAL INDICATORS:
+          • After-hours access (23:45) - red flag
+          • External IP address (85.232.45.100) - MAJOR red flag
+          • Automated tool usage (curl/7.68.0) - indicates scripted attack
+          • Confidential document access
+          • Very brief session (3 minutes) - suggests targeted exfiltration
+          • Unknown location
+
+          THREAT ASSESSMENT:
+          This pattern is consistent with:
+          - Active data exfiltration in progress
+          - Compromised credentials being used by threat actor
+          - Automated data theft operation
+          - Potential APT (Advanced Persistent Threat) activity
+
+          IMMEDIATE ACTIONS REQUIRED:
+          1. CRITICAL: Suspend emp_003 account immediately
+          2. Block IP address 85.232.45.100 at firewall
+          3. Initiate incident response protocol
+          4. Preserve all logs and system state for forensics
+          5. Check if confidential_strategy.pdf was successfully downloaded
+          6. Review all emp_003 activity in last 90 days
+          7. Alert security operations center (SOC)
+          8. Notify CISO and legal team
+
+          FORENSIC INVESTIGATION NEEDED:
+          - Determine if credentials were compromised or insider threat
+          - Check for lateral movement within network
+          - Review network traffic from this IP
+          - Assess damage and data exposure
+          - Timeline reconstruction of the incident
+
+          CONTAINMENT PRIORITY: HIGHEST
+
+task_description: |
+  Analyze employee security behavior and activity logs to identify potential insider threats, 
+  compromised accounts, and anomalous patterns. Provide risk assessments with specific 
+  security recommendations and incident response guidance.
