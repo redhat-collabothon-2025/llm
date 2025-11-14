@@ -3,7 +3,7 @@ from typing import Union, List
 import json
 import torch
 from tqdm import tqdm
-from services.Neeko.moelora import PeftModel
+from moelora import PeftModel
 import argparse
 import os
 import re
